@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Electronics</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/electronics.css">
+
+</head>
+
+<body style="background-color: rgb(231, 238, 238); background-size: cover;">
+    <%-include("partials/header.ejs")%>
+
+        <h1 style="margin-top: 25px; margin-left: 20px;">
+            Electronics Products</h1>
+
+        <div style="display:grid;grid-template-columns: repeat(4, 1fr);gap:20px;padding:20px;">
+
+            <% electronics.forEach(item=> { %>
+
+                <div style="
+                border:1px solid black;
+                width:200px;
+                padding:20px;
+                text-align:center;
+                background-color: rgb(255, 255, 255);
+            ">
+
+                    <img src="/<%= item.image %>" alt="<%= item.name %>" width="150" height="150">
+
+                    <h3>
+                        <%= item.name %>
+                    </h3>
+
+                    <form action="/addtocart" method="POST">
+
+                        <input type="hidden" name="item" value="<%= item.name %>">
+                        <input type="hidden" name="image" value="<%= item.image %>">
+
+                        <input type="hidden" name="price" value="<%= item.price %>">
+
+                        <button type="submit" class="button"
+                            style="background-color:rgb(230, 188, 62);  border-radius: 20px;border: none;padding: 6px; font-size: 15px;">
+                            Add To Cart
+                        </button>
+
+                    </form>
+
+                </div>
+
+                <% }) %>
+
+        </div>
+        <%-include("partials/footer.ejs")%>
+
+</body>
+
+</html>

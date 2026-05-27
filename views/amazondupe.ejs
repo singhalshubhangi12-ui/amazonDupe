@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <title>Amazon</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+   <%-include("partials/header.ejs")%>
+
+
+    <div class="herosection">
+        <div class="message">
+            <p>Shop on Amazon from official website.<a href="/official">Click here</a></p>
+        </div>
+    </div> 
+    
+    <div class="shopsection">
+        
+        <div class="box1 boxx">
+            <a href="/electronics" style="text-decoration: none;color: black;">
+        <h2 class="h2">Electronics</h2>
+        <div class="image1"></div>
+       
+        <footer class="seemore">see more</footer>
+         </a>
+        </div>
+        
+         <div class="box2 boxx">
+        <h2 class="h2">Health & Personal Care</h2>
+        <div class="image2"></div>
+        <footer class="seemore">see more</footer>
+         </div>
+          <div class="box3 boxx">
+            <h2 class="h2">Home Decor</h2>
+        <div class="image3"></div>
+        <footer class="seemore">see more</footer>
+          </div>
+           <div class="box4 boxx">
+            <h2 class="h2">Makeup & Others</h2>
+        <div class="image4"></div>
+        <footer class="seemore">see more</footer>
+           </div>
+    </div>
+    
+
+    <p class="unknown">..</p>
+    <div class="shopsection">
+    <div class="box5 boxx">
+            <h2 class="h2">More items</h2>
+        <div class="image5"></div>
+        <footer class="seemore">see more</footer>
+           </div>
+           <div class="box6 boxx">
+            <h2 class="h2">Keep shopping for </h2>
+        <div class="image6"></div>
+        <footer class="seemore">see more</footer>
+           </div>
+           <div class="box7 boxx">
+            <h2 class="h2">Related to your views</h2>
+        <div class="image7"></div>
+        <footer class="seemore">see more</footer>
+           </div>
+           <div class="box8 boxx">
+            <h2 class="h2">Explore more</h2>
+        <div class="image8"></div>
+        <footer class="seemore">see more</footer>
+           </div>
+    
+</div>
+<p class="unknown2">..</p>
+ <%- include("partials/footer.ejs") %>
+ </footer>
+</body>
+</html>

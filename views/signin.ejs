@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signin</title>
+</head>
+<style>
+
+.signin-container{
+    width:350px;
+    margin:50px auto;
+    background-color:white;
+    padding:30px;
+    border:1px solid #d5d9d9;
+    border-radius:8px;
+    box-shadow:0px 2px 8px rgba(0,0,0,0.1);
+}
+
+.signin-container img{
+    display:block;
+    width:120px;
+    margin:0 auto 20px;
+}
+
+.signin-container h1{
+    text-align:center;
+    font-size:32px;
+    margin-bottom:20px;
+}
+
+.signin-container form{
+    display:flex;
+    flex-direction:column;
+}
+
+.signin-container label{
+    font-size:15px;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+.signin-container input{
+    width:100%;
+    padding:10px;
+    box-sizing:border-box;
+    border:1px solid #a6a6a6;
+    border-radius:4px;
+    margin-bottom:15px;
+    font-size:15px;
+}
+
+.signin-container input:focus{
+    outline:none;
+    border:2px solid #ff9900;
+}
+
+.signin-container button{
+    background-color:#FFD814;
+    border:none;
+    border-radius:20px;
+    padding:12px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.signin-container button:hover{
+    background-color:#f7ca00;
+}
+</style>
+<body>
+    <%-include("partials/header.ejs")%>
+    <div class="signin-container">
+        <img src="/logo.jpg" alt="logo">
+        <% if(!showLogin){ %>
+     <h1>Sign-In</h1>
+
+     <form action="/user/signup" method="POST">
+        <label>Name</label>
+        <input type="text" name="name" required>
+
+        <br><br>
+         <label>Email: </label>
+        <input type="email" name="email" required>
+       
+
+        <br><br>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <br><br>
+
+        <button type="submit">Sign In</button>
+
+    </form>
+<%}else{%>
+  <form action="/user/login" method="POST">
+
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <br><br>
+
+    <label>Password</label>
+    <input type="password" name="password" required>
+
+    <br><br>
+
+    <button type="submit">Login</button>
+
+</form>
+ <% }%>
+</div>
+    <%- include("partials/footer.ejs") %>
+</body>
+</html>

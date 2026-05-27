@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/style.css">
+    <title>
+        header
+    </title>
+</head>
+<body>
+        <header>
+        <div class="navbar">
+            <a href="/">
+            <div class="navlogo border">
+                <div class="logo"></div>
+            </div>
+            </a>
+            <div class="navaddress border">
+                <p class="addfirst">deliver to</p>
+                <div class="addicon">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p class ="addsecond">India</p>
+                </div>
+            </div>
+            <form action="/search" method="GET" class="navsearch ">
+           
+                <select class="searchselect">
+                    <option>All</option>
+                </select>
+              <input
+               type="text"
+               name="query"
+               placeholder="search amazon"
+               class="searchinput"
+               >
+                <button type="submit" class="searchicon" style="border: none; font-size:1.2rem;background-color:#febd69;display:flex;
+                justify-content:center;
+                align-items:center;">
+                 <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+         
+            <div class="navsignin border">
+                <%if (locals.name){%>
+                    <p><span>Hello</span></p>
+                    <p class="navsecond">
+                    <%= name %>
+                    </p>
+                <%}else{%>
+                 <a href="/signin" style="text-decoration: none;color: white;">
+                <p><span>sign-in</span></p>
+                <p class="navsecond">account</p>
+                </a>
+                 <% } %>
+            </div>
+      
+            <div class="navsignin border">
+                 <a href="/Returns" style="text-decoration: none;color: white;">
+                <p><span>Returns &</span></p>
+                <p class="navsecond">Orders</p>
+                </a>
+            </div>
+            <div class="navcart">
+                <div class="carticon">
+                    
+                    <i class="fa-solid fa-cart-shopping"></i>
+                     <a href="/cart" style="text-decoration: none;color: white;">
+                    <div class="cart">
+                        <p>Cart</p>
+                    </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel">
+            <div class="panelall">
+                <div class="panelicon border">
+                    <i class="fa-solid fa-bars"></i>
+                    All
+                </div>
+               
+                <div class="panelops">
+                <p class="border box"> Deals</p>
+                <p class="border box"> Service</p>
+                <p class="border box">Offers</p>
+                <p class="border box">Gift Cards
+                </p>
+                 
+                 
+                </div>
+                <p class="deals border">Shop Deals</p>
+            </div>
+        </div>
+    </header> 
+
+    
+</body>
+</html>
