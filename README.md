@@ -1,4 +1,4 @@
-# amazonDupe
+
 # Amazon Clone
 
 A simple Amazon-inspired e-commerce website built using **Node.js, Express.js, EJS, MongoDB, HTML, CSS, and JavaScript**.
