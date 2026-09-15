@@ -17,13 +17,17 @@
                 <div class="logo"></div>
             </div>
             </a>
-            <div class="navaddress border">
-                <p class="addfirst">deliver to</p>
-                <div class="addicon">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <p class ="addsecond">India</p>
-                </div>
-            </div>
+           
+
+      <a href="/location" class="navaddress border" style=" text-decoration: none;color: inherit;">
+        <p class="addfirst">deliver to</p>
+<div class="addicon">
+    <i class="fa-solid fa-location-dot"></i>
+    <p class="addsecond" id="deliveryAddress">India</p>
+</div>
+    
+</a>
+
             <form action="/search" method="GET" class="navsearch ">
            
                 <select class="searchselect">
@@ -99,3 +103,10 @@
     
 </body>
 </html>
+<script>
+    const savedAddress = localStorage.getItem("deliveryAddress");
+
+    if (savedAddress) {
+        document.getElementById("deliveryAddress").textContent = savedAddress;
+    }
+</script>

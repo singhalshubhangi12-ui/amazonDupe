@@ -4,13 +4,22 @@ import bodyParser from "body-parser";
 import { connectMongoDB } from "./connection.js";
 import userrouter from "./routes/user.routes.js";
 import { authMiddleware } from "./middlewares/auth.middleware.js";
-//import User from "./models/user.model.js";
+import cookieParser from "cookie-parser";
+import jwt from "jsonwebtoken";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger-output.json" with { type: "json" };
+
+
 
 const app = express();
+
 app.use(express.json());
+
+app.use(cookieParser());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use(authMiddleware);
-
-
 const port=5000;
 
 let name="";
@@ -20,6 +29,7 @@ const cart=[];
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended:true}));
 app.use(express.static("public"));
+
 
 //mongodb
 connectMongoDB(process.env.MongoDB_URL)
@@ -47,6 +57,9 @@ app.get("/signin",(req,res)=>{
 
 
 // });
+app.get("/location", (req, res) => {
+    res.render("location");
+});
 app.get("/returns",(req,res)=>{
     res.render("returns.ejs",{ name });
 });

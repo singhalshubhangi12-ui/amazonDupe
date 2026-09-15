@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Location</title>
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+        }
+
+        .location-container {
+            width: 80%;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="location-container">
+
+    <h1>Select your delivery location</h1>
+
+    <button id="locationBtn">
+        📍 Use my current location
+    </button>
+
+    <div id="map"></div>
+
+    <button id="confirmBtn">
+        Confirm Location
+    </button>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    const map = L.map("map").setView([20.5937, 78.9629], 5);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    let marker = null;
+    let selectedLatitude = null;
+    let selectedLongitude = null;
+
+    document.getElementById("locationBtn").addEventListener("click", () => {
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+
+                selectedLatitude = position.coords.latitude;
+                selectedLongitude = position.coords.longitude;
+
+                map.setView(
+                    [selectedLatitude, selectedLongitude],
+                    15
+                );
+
+                setMarker(
+                    selectedLatitude,
+                    selectedLongitude
+                );
+            },
+            () => {
+                alert("Unable to get your location.");
+            }
+        );
+    });
+
+    map.on("click", function(e) {
+
+        selectedLatitude = e.latlng.lat;
+        selectedLongitude = e.latlng.lng;
+
+        setMarker(
+            selectedLatitude,
+            selectedLongitude
+        );
+    });
+
+    function setMarker(latitude, longitude) {
+
+        if (marker) {
+            map.removeLayer(marker);
+        }
+
+        marker = L.marker([latitude, longitude])
+            .addTo(map)
+            .bindPopup("Selected Location")
+            .openPopup();
+    }
+
+ document.getElementById("confirmBtn").addEventListener("click", async () => {
+
+    if (selectedLatitude === null) {
+        alert("Please select a location first.");
+        return;
+    }
+
+    try {
+
+        const mapResponse = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${selectedLatitude}&lon=${selectedLongitude}`
+        );
+
+        const data = await mapResponse.json();
+
+        const address = data.address;
+
+        const city =
+            address.city ||
+            address.town ||
+            address.village ||
+            address.municipality ||
+            "";
+
+        const state = address.state || "";
+
+        const shortAddress = `${city}, ${state}`;
+
+        const saveResponse = await fetch("/user/location", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                deliveryAddress: shortAddress,
+                latitude: selectedLatitude,
+                longitude: selectedLongitude
+            })
+        });
+
+        const result = await saveResponse.json();
+
+        if (!saveResponse.ok) {
+            alert(result.message);
+            return;
+        }
+
+        localStorage.setItem("deliveryAddress", shortAddress);
+
+        alert("Location confirmed!\n\n" + shortAddress);
+
+        window.location.href = "/";
+
+    } catch (error) {
+
+        console.log(error);
+        alert("Unable to find or save the address.");
+
+    }
+});
+
+localStorage.setItem("deliveryAddress", shortAddress);
+
+</script>
+
+</body>
+</html>

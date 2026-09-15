@@ -16,6 +16,21 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+    },
+
+    deliveryAddress: {
+      type: String,
+      default: "",
+    },
+
+    latitude: {
+      type: Number,
+      default: null,
+    },
+
+    longitude: {
+      type: Number,
+      default: null,
     }
   },
 
@@ -23,6 +38,8 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+// SAVE DELIVERY LOCATION
+
 
 const User = mongoose.model("User", userSchema);
 

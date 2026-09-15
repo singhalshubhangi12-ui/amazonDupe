@@ -1,15 +1,16 @@
-import jwt from 'jsonwebtoken';
-
+import jwt from "jsonwebtoken";
 
 export const authMiddleware = async (req, res, next) => {
     try {
-        const tokenHeader = req.headers['authorization'];
+        const tokenHeader = req.headers["authorization"];
 
-        if (!tokenHeader) {
+        const token =
+            req.cookies.token ||
+            (tokenHeader ? tokenHeader.split(" ")[1] : null);
+
+        if (!token) {
             return next();
         }
-
-        const token = tokenHeader.split(' ')[1];
 
         const decoded = jwt.verify(
             token,
